@@ -16,7 +16,7 @@ const e = require('express')
 const PORT = process.env.PORT || 5000
 
 app.get('/', (req, res) => {
-  res.send(characters)
+  res.send(200)
 })
 
 io.on('connection', (socket) => {
