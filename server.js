@@ -100,8 +100,6 @@ io.on('connection', (socket) => {
       io.sockets.in(turn.player.room).emit('counter', counter)
       if (counter === 0) {
         io.to(turn.player.id).emit('pickDefault', turn)
-        const host = getHostInRoom(turn.player.room)
-        io.to(host.id).emit('nextTurn')
         clearInterval(selectTimer)
       }
     }, 1000)
