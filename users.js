@@ -13,10 +13,10 @@ function userJoin (id, username, avatar, room, isHost) {
   return user
 }
 
-function voteReroll (id) {
+function voteReroll (data) {
   users = users.map(user => {
-    if (user.id === id) {
-      user.voteReroll = true
+    if (user.id === data.id) {
+      user.voteReroll = data.reroll
     }
     return user
   })

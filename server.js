@@ -12,6 +12,7 @@ const io = require('socket.io')(server, {
 
 const characters = require('./characters')
 const e = require('express')
+const { info } = require('console')
 
 const PORT = process.env.PORT || 5000
 
@@ -60,58 +61,77 @@ io.on('connection', (socket) => {
     io.sockets.in(data.room).emit('startPhase', data.mode)
   })
 
+  socket.on('showPanel', (room) => {
+    io.sockets.in(room).emit('showPanel')
+  })
+
   socket.on('determineSequence', (data) => {
     const players = getAllPlayersInRoom(data.room)
     determineSequence(data.mode, players)
   })
 
   socket.on('nextTurn', () => {
-    clearInterval(timer)
+    clearInterval(selectTimer)
     incrementPointer()
     const turn = getTurn()
     if (turn) {
-      io.sockets.in(turn.player.room).emit('announceSelect', { name: turn.player.username, type: turn.selection})
+      io.sockets.in(turn.player.room).emit('announceSelect', { id: turn.player.id, name: turn.player.username, type: turn.selection})
       io.to(turn.player.id).emit('select', turn.selection)
+      const host = getHostInRoom(turn.player.room)
+      io.to(host.id).emit('startTimeSelect')
     }
   })
 
   socket.on('enter', data => {
     io.in(data.room).emit('removeCharacterFromPanel', data)
+    const host = getHostInRoom(data.room)
+    io.to(host.id).emit('nextTurn')
   })
 
-  let counter
-  let timer
+  let counter = null
+  let selectTimer = null
+  let rerollTimer = null
 
   socket.on('startTimeSelect', () => {
-    counter = 30
+    counter = 31
     const turn = getTurn()
-    timer = setInterval( () => {
-      io.sockets.in(turn.player.room).emit('counter', counter)
+    selectTimer = setInterval( () => {
       counter--
-      if (counter === -1) {
+      io.sockets.in(turn.player.room).emit('counter', counter)
+      if (counter === 0) {
         io.to(turn.player.id).emit('pickDefault', turn)
-        clearInterval(timer)
+        const host = getHostInRoom(turn.player.room)
+        io.to(host.id).emit('nextTurn')
+        clearInterval(selectTimer)
       }
     }, 1000)
   })
 
   socket.on('startTimeReroll', (room) => {
-    counter = 10
-    timer = setInterval( () => {
-      io.sockets.in(room).emit('counter', counter)
+    counter = 11
+    rerollTimer = setInterval( () => {
       counter--
-      if (counter === -1) {
+      io.sockets.in(room).emit('counter', counter)
+      console.log(counter)
+      if (counter === 0) {
         const host = getHostInRoom(room)
         const players = getAllPlayersInRoom(room)
         io.to(host.id).emit('determineReroll', players)
-        clearInterval(timer)
+        clearInterval(rerollTimer)
       }
     }, 1000)
   })
 
   socket.on('reroll', (data) => {
-    if (data.reroll)
-      voteReroll(data.id)
+    voteReroll(data)
+  })
+
+  socket.on('reset', (room) => {
+    counter = null
+    clearInterval(selectTimer)
+    clearInterval(rerollTimer)
+    resetSequence()
+    io.sockets.in(room).emit('reset')
   })
 
   socket.on('disconnect', () => {
@@ -121,6 +141,9 @@ io.on('connection', (socket) => {
       const users = getAllUsersInRoom(user.room)
       if (!users.length) {
         resetSequence()
+        clearInterval(selectTimer)
+        clearInterval(rerollTimer)
+        timer = null
       }
     }
     console.log('user disconnected')
