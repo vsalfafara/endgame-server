@@ -10,10 +10,6 @@ const io = require('socket.io')(server, {
   }
 })
 
-const characters = require('./characters')
-const e = require('express')
-const { info } = require('console')
-
 const PORT = process.env.PORT || 5000
 
 app.get('/', (req, res) => {
@@ -110,7 +106,6 @@ io.on('connection', (socket) => {
     rerollTimer = setInterval( () => {
       counter--
       io.sockets.in(room).emit('counter', counter)
-      console.log(counter)
       if (counter === 0) {
         const host = getHostInRoom(room)
         const players = getAllPlayersInRoom(room)
