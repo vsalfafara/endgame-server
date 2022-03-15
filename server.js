@@ -4,6 +4,7 @@ const server = require('http').createServer(app)
 const { userJoin, getUser, getAllUsersInRoom, getHostInRoom, getAllPlayersInRoom, removeUser } = require('./users.js')
 const { resetSequence, setRerollStatus, getRerollStatus, setCaptains, getCaptains, incrementPointer, getTurn, determineSequence } = require('./sequence.js')
 const crypto = require("crypto")
+const { key } = require('./key.js')
 const io = require('socket.io')(server, {
   cors: {
     origin: '*'
@@ -18,15 +19,20 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
 
-  socket.on('createRoom', ({username, avatar}) => {
-    var room = crypto.randomBytes(10).toString('hex')
-    const user = userJoin(socket.id, username, avatar, room, true)
-    socket.join(user.room)
-    socket.emit('getRoomId', room)
+  socket.on('createRoom', (data) => {
+    console.log();
+    if (key === data.key) {
+      var room = crypto.randomBytes(10).toString('hex')
+      const user = userJoin(socket.id, data.name, null, room, true)
+      socket.join(user.room)
+      socket.emit('getRoomId', room)
+    } else {
+      io.to(socket.id).emit('incorrectKey')
+    }
   })
   
-  socket.on('joinRoom', ({username, avatar}, room) => {
-    const user = userJoin(socket.id, username, avatar, room, false)
+  socket.on('joinRoom', ({name, avatar}, room) => {
+    const user = userJoin(socket.id, name, avatar, room, false)
     socket.join(user.room)
     const users = getAllUsersInRoom(room)
     socket.broadcast.to(user.room).emit('getAllUsersInRoom', users)
