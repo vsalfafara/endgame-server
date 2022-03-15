@@ -6,20 +6,10 @@ function userJoin (id, username, avatar, room, isHost) {
     username: username,
     avatar: avatar,
     room: room,
-    isHost: isHost,
-    voteReroll: 0
+    isHost: isHost
   }
   users.push(user)
   return user
-}
-
-function voteReroll (data) {
-  users = users.map(user => {
-    if (user.id === data.id) {
-      user.voteReroll = data.reroll
-    }
-    return user
-  })
 }
 
 function getUser (id)  {
@@ -43,9 +33,7 @@ function removeUser(id) {
 }
 
 module.exports = {
-  users,
   userJoin,
-  voteReroll,
   getUser,
   getAllUsersInRoom,
   getHostInRoom,
