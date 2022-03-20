@@ -50,27 +50,25 @@ function determineSequence(mode, captains) {
       sequence = [
         {
           turn: 1,
-          audio: '_team 1 ban.wav',
+          audio: 'teamOneBan',
           player: captains[0],
           selection: 0
         },
         {
           turn: 2,
-          audio: '_team 2 ban.wav',
+          audio: 'teamTwoBan',
           player: captains[1],
           selection: 0
         },
         {
           turn: 3,
-          team: 1,
-          audio: '_team 1 pick.wav',
+          audio: 'teamOnePick',
           player: captains[0],
           selection: 1
         },
         {
           turn: 4,
-          team: 2,
-          audio: '_team 2 pick.wav',
+          audio: 'teamTwoPick',
           player: captains[1],
           selection: 1
         }
@@ -80,55 +78,55 @@ function determineSequence(mode, captains) {
       sequence = [
         {
           turn: 1,
-          audio: '_team 1 ban.wav',
+          audio: 'teamOneBan',
           player: captains[0],
           selection: 0
         },
         {
           turn: 2,
           team: 2,
-          audio: '_team 2 ban.wav',
+          audio: 'teamTwoBan',
           player: captains[1],
           selection: 0
         },
         {
           turn: 3,
-          audio: '_team 1 pick.wav',
+          audio: 'teamOnePick',
           player: captains[0],
           selection: 1
         },
         {
           turn: 4,
           team: 2,
-          audio: '_team 2 pick.wav',
+          audio: 'teamTwoPick',
           player: captains[1],
           selection: 1
         },
         {
           turn: 5,
           team: 2,
-          audio: '_team 2 ban.wav',
+          audio: 'teamTwoBan',
           player: captains[1],
           selection: 0
         },
         {
           turn: 6,
           team: 1,
-          audio: '_team 1 ban.wav',
+          audio: 'teamOneBan',
           player: captains[0],
           selection: 0
         },
         {
           turn: 7,
           team: 2,
-          audio: '_team 2 pick.wav',
+          audio: 'teamTwoPick',
           player: captains[1],
           selection: 1
         },
         {
           turn: 8,
           team: 1,
-          audio: '_team 1 pick.wav',
+          audio: 'teamOnePick',
           player: captains[0],
           selection: 1
         }
@@ -139,84 +137,84 @@ function determineSequence(mode, captains) {
         {
           turn: 1,
           team: 1,
-          audio: '_team 1 ban.wav',
+          audio: 'teamOneBan',
           player: captains[0],
           selection: 0
         },
         {
           turn: 2,
           team: 2,
-          audio: '_team 2 ban.wav',
+          audio: 'teamTwoBan',
           player: captains[1],
           selection: 0
         },
         {
           turn: 3,
           team: 1,
-          audio: '_team 1 ban.wav',
+          audio: 'teamOneBan',
           player: captains[0],
           selection: 0
         },
         {
           turn: 4,
           team: 2,
-          audio: '_team 2 ban.wav',
+          audio: 'teamTwoBan',
           player: captains[1],
           selection: 0
         },
         {
           turn: 5,
           team: 1,
-          audio: '_team 1 pick.wav',
+          audio: 'teamOnePick',
           player: captains[0],
           selection: 1
         },
         {
           turn: 6,
           team: 2,
-          audio: '_team 2 pick.wav',
+          audio: 'teamTwoPick',
           player: captains[1],
           selection: 1
         },
         {
           turn: 7,
           team: 1,
-          audio: '_team 1 pick.wav',
+          audio: 'teamOnePick',
           player: captains[0],
           selection: 1
         },
         {
           turn: 8,
           team: 2,
-          audio: '_team 2 pick.wav',
+          audio: 'teamTwoPick',
           player: captains[1],
           selection: 1
         },
         {
           turn: 9,
           team: 2,
-          audio: '_team 2 ban.wav',
+          audio: 'teamTwoBan',
           player: captains[1],
           selection: 0
         },
         {
           turn: 10,
           team: 1,
-          audio: '_team 1 ban.wav',
+          audio: 'teamOneBan',
           player: captains[0],
           selection: 0
         },
         {
           turn: 11,
           team: 2,
-          audio: '_team 2 pick.wav',
+          audio: 'teamTwoPick',
           player: captains[1],
           selection: 1
         },
         {
           turn: 12,
           team: 1,
-          audio: '_team 1 pick.wav',
+          audio: 'teamOnePick',
           player: captains[0],
           selection: 1
         }
@@ -226,97 +224,97 @@ function determineSequence(mode, captains) {
       sequence = [
         {
           turn: 1,
-          audio: '_team 1 ban.wav',
+          audio: 'teamOneBan',
           player: captains[0],
           selection: 0
         },
         {
           turn: 2,
-          audio: '_team 2 ban.wav',
+          audio: 'teamTwoBan',
           player: captains[1],
           selection: 0
         },
         {
           turn: 3,
-          audio: '_team 1 ban.wav',
+          audio: 'teamOneBan',
           player: captains[0],
           selection: 0
         },
         {
           turn: 4,
-          audio: '_team 2 ban.wav',
+          audio: 'teamTwoBan',
           player: captains[1],
           selection: 0
         },
         {
           turn: 5,
-          audio: '_team 1 pick.wav',
+          audio: 'teamOnePick',
           player: captains[0],
           selection: 1
         },
         {
           turn: 6,
-          audio: '_team 2 pick.wav',
+          audio: 'teamTwoPick',
           player: captains[1],
           selection: 1
         },
         {
           turn: 7,
-          audio: '_team 1 pick.wav',
+          audio: 'teamOnePick',
           player: captains[0],
           selection: 1
         },
         {
           turn: 8,
-          audio: '_team 2 pick.wav',
+          audio: 'teamTwoPick',
           player: captains[1],
           selection: 1
         },
         {
           turn: 9,
-          audio: '_team 2 ban.wav',
+          audio: 'teamTwoBan',
           player: captains[1],
           selection: 0
         },
         {
           turn: 10,
-          audio: '_team 1 ban.wav',
+          audio: 'teamOneBan',
           player: captains[0],
           selection: 0
         },
         {
           turn: 11,
-          audio: '_team 2 ban.wav',
+          audio: 'teamTwoBan',
           player: captains[1],
           selection: 0
         },
         {
           turn: 12,
-          audio: '_team 1 ban.wav',
+          audio: 'teamOneBan',
           player: captains[0],
           selection: 0
         },
         {
           turn: 13,
-          audio: '_team 2 pick.wav',
+          audio: 'teamTwoPick',
           player: captains[1],
           selection: 1
         },
         {
           turn: 14,
-          audio: '_team 1 pick.wav',
+          audio: 'teamOnePick',
           player: captains[0],
           selection: 1
         },
         {
           turn: 15,
-          audio: '_team 2 pick.wav',
+          audio: 'teamTwoPick',
           player: captains[1],
           selection: 1
         },
         {
           turn: 16,
-          audio: '_team 1 pick.wav',
+          audio: 'teamOnePick',
           player: captains[0],
           selection: 1
         }
