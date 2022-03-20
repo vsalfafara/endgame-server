@@ -89,29 +89,34 @@ io.on('connection', (socket) => {
     determineSequence(data.mode, captains)
   })
 
+  let counter = null
+  let selectTimer = null
+  let rerollTimer = null
+
   socket.on('nextTurn', (room) => {
     clearInterval(selectTimer)
     incrementPointer()
     const turn = getTurn()
     const host = getHostInRoom(room)
     if (turn) {
-      io.sockets.in(turn.player.room).emit('announceSelect', { id: turn.player.id, name: turn.player.username, type: turn.selection})
+      io.sockets.in(turn.player.room).emit('announceSelect', { id: turn.player.id, name: turn.player.username, type: turn.selection, audio: turn.audio })
       io.to(turn.player.id).emit('select', turn.selection)
       io.to(host.id).emit('startTimeSelect')
     } else {
-      io.to(host.id).emit('showSwitchBtn')
+      io.sockets.in(host.room).emit('hideElements')
     }
   })
 
   socket.on('enter', data => {
+    const turn = getTurn()
+    data.audio = turn.audio
     io.in(data.room).emit('removeCharacterFromPanel', data)
-    const host = getHostInRoom(data.room)
-    io.to(host.id).emit('nextTurn')
   })
 
-  let counter = null
-  let selectTimer = null
-  let rerollTimer = null
+  socket.on('stopTimer', () => {
+    clearInterval(selectTimer)
+    clearInterval(rerollTimer)
+  })
 
   socket.on('countdownToSelect', (room) => {
     counter = 4
